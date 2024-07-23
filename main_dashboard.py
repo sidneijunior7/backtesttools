@@ -86,7 +86,7 @@ def create_dash(df):
                 c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
                 c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
             else:
-                aporte = c.number_input(min_value=1, max_value=None, label="Depósito", value=1000.0, step=100)
+                aporte = c.number_input(min_value=100.0, max_value=None, value=1000.0, step=100)
                 c.metric(label="Lucro: ", value="{:.2f}%".format((100 * metrics['Lucro Bruto']) / aporte))
                 c.metric(label="Lucro Max: ", value="{:.2f}%".format((100 * metrics['Lucro Máximo']) / aporte))
         with col2:
