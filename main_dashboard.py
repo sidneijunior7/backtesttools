@@ -56,11 +56,11 @@ def create_dash(df):
     st.subheader("Dados Históricos")
     col1, col2 = st.columns(2)
     with col1:
-        c = st.container()
+        c = st.container(border=True)
         c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
         c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
     with col2:
-        s = st.container
+        s = st.container(border=True)
         s.metric(label="Drawdown Médio: ", value=metrics['Drawdown Medio'])
         s.metric(label="Drawdown Máximo: ", value=metrics['Drawdown Maximo'])
     return None
