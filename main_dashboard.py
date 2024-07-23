@@ -69,6 +69,13 @@ def create_dash(df):
             c.caption('RISCO')
             c.metric(label="Drawdown Médio: ", value=metrics['Drawdown Medio'])
             c.metric(label="Drawdown Máximo: ", value=metrics['Drawdown Maximo'])
+        if start_date <= end_date:
+            filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
+            valor_inicial = filtered_df['BALANCE'].iloc[0]
+            st.line_chart(filtered_df.set_index('DATE')['BALANCE'] - valor_inicial)
+        else:
+            st.error("Erro: A data de início deve ser menor ou igual à data de término.")
+
     with tab2:
         col1, col2 = st.columns(2)
         with col1:
@@ -81,14 +88,14 @@ def create_dash(df):
             c.caption('RISCO AVANÇADO')
             c.metric(label="Total Dias: ", value=metrics['Dias'])
             c.metric(label="Positivos: ", value="{:.2f}%".format((metrics['Dias Positivos'] / metrics['Dias']) * 100))
+        if start_date <= end_date:
+            filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
+            filtered_df['DD_MAX'] = filtered_df['BALANCE'].cummax()
+            st.line_chart(filtered_df['DD_MAX'] - filtered_df['BALANCE'])
+        else:
+            st.error("Erro: A data de início deve ser menor ou igual à data de término.")
 
 
-    if start_date <= end_date:
-        filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
-        valor_inicial = filtered_df['BALANCE'].iloc[0]
-        st.line_chart(filtered_df.set_index('DATE')['BALANCE'] - valor_inicial)
-    else:
-        st.error("Erro: A data de início deve ser menor ou igual à data de término.")
 
 
     return None
