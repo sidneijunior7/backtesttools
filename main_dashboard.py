@@ -81,13 +81,25 @@ def create_dash(df):
         with col1:
             c = st.container(border=True)
             c.caption('RETORNO AVANÇADO')
-            c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
-            c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
+            tipo_retorno = st.radio("Tipo",["Relativo", "Absoluto"])
+            if tipo_retorno=="Absoluto":
+                c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
+                c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
+            else:
+                aporte = c.number_input(min_value=0, max_value=None,placeholder="Depósito")
+                c.metric(label="Lucro: ", value="{:.2f}%".format(100*metrics['Lucro Bruto'] / aporte))
+                c.metric(label="Lucro Max: ", value="{:.2f}%".format(100*metrics['Lucro Máximo']/aporte))
         with col2:
             c = st.container(border=True)
             c.caption('RISCO AVANÇADO')
-            c.metric(label="Total Dias: ", value=metrics['Dias'])
-            c.metric(label="Positivos: ", value="{:.2f}%".format((metrics['Dias Positivos'] / metrics['Dias']) * 100))
+            tipo_retorno = st.radio("Tipo", ["Relativo", "Absoluto"])
+            if tipo_retorno=="Absoluto":
+                c.metric(label="Total Dias: ", value=metrics['Dias'])
+                c.metric(label="Positivos: ", value="{:.2f}%".format((metrics['Dias Positivos'] / metrics['Dias']) * 100))
+            else:
+
+                c.metric(label="Total Dias: ", value=metrics['Dias'])
+                c.metric(label="Positivos: ",  value="{:.2f}%".format((metrics['Dias Positivos'] / metrics['Dias']) * 100))
         if start_date <= end_date:
             filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
             filtered_df['DD_MAX'] = filtered_df['BALANCE'].cummax()
