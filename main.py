@@ -82,7 +82,7 @@ if authentication_status:
                         create_dash(df)
                     break
 
-        if st.button("Apagar Backtest"):
+        if st.button("Apagar Backtest :no_entry:"):
             for bt in backtests:
                 if bt[2] == selected_backtest:
                     delete_backtest(conn, bt[0])
