@@ -60,7 +60,7 @@ def create_dash(df):
         c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
         c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
     with col2:
-        c = st.container
-        c.metric(label="Drawdown Médio: ", value=metrics['Drawdown Medio'])
-        c.metric(label="Drawdown Máximo: ", value=metrics['Drawdown Maximo'])
+        s = st.container
+        s.metric(label="Drawdown Médio: ", value=metrics['Drawdown Medio'])
+        s.metric(label="Drawdown Máximo: ", value=metrics['Drawdown Maximo'])
     return None
