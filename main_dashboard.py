@@ -20,7 +20,7 @@ def calculate_metrics(df, start_date, end_date):
     filtered_df['DATE_ONLY'] = filtered_df['DATE'].dt.date
 
     # Calcular o saldo diário
-    daily_balance = filtered_df.groupby('DATE')['BALANCE'].last().reset_index()
+    daily_balance = filtered_df.groupby('DATE_ONLY')['BALANCE'].last().reset_index()
 
     # Filtrar os dias com saldo diário positivo
     positive_days = daily_balance[daily_balance['BALANCE'] > 0]
@@ -34,7 +34,7 @@ def calculate_metrics(df, start_date, end_date):
         "Drawdown Maximo": round(dd_max.max(), 2),
         "Drawdown Medio": round(dd_max.mean(), 2),
         "Dias": filtered_df['DATE'].dt.date.nunique(),
-        "Dias Positivos": positive_days['DATE'].nunique()
+        "Dias Positivos": positive_days['DATE_ONLY'].nunique()
     }
     return metrics
 
