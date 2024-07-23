@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 
+
 def calculate_metrics(df, start_date, end_date):
     # Converter as datas para datetime
     start_date = pd.to_datetime(start_date)
@@ -23,8 +24,6 @@ def calculate_metrics(df, start_date, end_date):
         "Drawdown Medio": round(dd_max.mean(), 2)
     }
     return metrics
-
-
 
 
 def create_dash(df):
@@ -61,3 +60,4 @@ def create_dash(df):
     with col2:
         st.metric(label="Drawdown Médio: ", value=metrics['Drawdown Medio'])
         st.metric(label="Drawdown Máximo: ", value=metrics['Drawdown Maximo'])
+    return None

@@ -19,9 +19,9 @@ credentials = {
             'name': 'Junior',
             'password': 'sssj170795'
         },
-        'user2': {
-            'name': 'User Two',
-            'password': hash_password('password2')
+        'user1': {
+            'name': 'User One',
+            'password': hash_password('password1')
         }
     }
 }
