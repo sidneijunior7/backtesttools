@@ -44,7 +44,8 @@ def create_dash(df):
     if start_date <= end_date:
         filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
         valor_inicial = filtered_df['BALANCE'].iloc[0]
-        st.line_chart(filtered_df.set_index('DATE')['BALANCE'] - valor_inicial)
+        #st.line_chart(filtered_df.set_index('DATE')['BALANCE'] - valor_inicial)
+        st.area_chart(filtered_df.set_index('DATE')['BALANCE'] - valor_inicial)
     else:
         st.error("Erro: A data de início deve ser menor ou igual à data de término.")
 
