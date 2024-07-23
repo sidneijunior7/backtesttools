@@ -49,6 +49,12 @@ def verify_password(username, password, credentials):
 
 if authentication_status:
     st.sidebar.success(f"Bem-vindo, {name}")
+
+    # Adicionar o botão de logout
+    if st.sidebar.button("Logout"):
+        authenticator.logout('main')
+        st.experimental_rerun()
+
     conn = create_connection("backtests.db")
     create_table(conn)
 
