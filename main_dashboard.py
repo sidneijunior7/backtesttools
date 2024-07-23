@@ -90,8 +90,8 @@ def create_dash(df):
                 c.metric(label="Lucro Max: ", value=f"R${metrics['Lucro Máximo']:.2f}")
             else:
                 aporte = c.number_input("Depósito ($)", min_value=100, value=1000, step=100, key='aporte')
-                c.metric(label="Lucro: ", value="{:.2f}%".format((100 * metrics['Lucro Bruto']) / aporte))
-                c.metric(label="Lucro Max: ", value="{:.2f}%".format((100 * metrics['Lucro Máximo']) / aporte))
+                c.metric(label="Lucro: ", value=f"{(100 * metrics['Lucro Bruto']) / aporte:.2f}%")
+                c.metric(label="Lucro Max: ", value=f"{(100 * metrics['Lucro Máximo']) / aporte:.2f}%")
         with col2:
             c = st.container()
             c.caption('RISCO AVANÇADO')
@@ -110,7 +110,3 @@ def create_dash(df):
             st.line_chart(-1 * (filtered_df['DD_MAX'] - filtered_df['BALANCE']), color="#FF0055")
         else:
             st.error("Erro: A data de início deve ser menor ou igual à data de término.")
-
-# Exemplo de uso (remova isso quando integrar com seu projeto principal)
-# df = pd.read_csv("seu_arquivo.csv")  # Carregar seu DataFrame aqui
-# create_dash(df)
