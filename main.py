@@ -17,7 +17,7 @@ credentials = {
     'usernames': {
         'sidneijunior': {
             'name': 'Junior',
-            'password': 'sssj170795'
+            'password': hash_password('sssj170795')  # Aplicando hash aqui
         },
         'user1': {
             'name': 'User One',
@@ -37,31 +37,26 @@ authenticator = stauth.Authenticate(
 # Tela de login
 name, authentication_status, username = authenticator.login('main')
 
-
-# Função para verificar a senha
-def verify_password(username, password, credentials):
-    hashed_password = hash_password(password)
-    if username in credentials['usernames']:
-        stored_password = credentials['usernames'][username]['password']
-        return hashed_password == stored_password
-    return False
-
-
 if authentication_status:
     st.sidebar.success(f"Bem-vindo, {name}")
-    # Adicionar o botão de logout
-    authenticator.logout('Sair','sidebar',None)
+
+    # Adicionar o botão de logout na sidebar
+    if st.sidebar.button("Logout"):
+        authenticator.logout('main')
+        st.experimental_rerun()
 
     conn = create_connection("backtests.db")
     create_table(conn)
 
-    # Opções após login
-    st.header("O que você deseja fazer?")
-    options = ["Novo Backtest", "Abrir Backtest Existente"]
+    # Adicionar as opções pós-login na sidebar
+    st.sidebar.header("Opções")
     if get_user_backtests(conn, username):
-        selected_option = st.selectbox("Escolha uma opção", options)
+        selected_option = st.sidebar.radio("Escolha uma opção", ["Novo Backtest", "Abrir Backtest Existente"])
     else:
-        selected_option = st.selectbox("Escolha uma opção", ["Novo Backtest"])
+        selected_option = st.sidebar.radio("Escolha uma opção", ["Novo Backtest"])
+
+    # Área principal
+    st.title("Dashboard")
 
     if selected_option == "Novo Backtest":
         uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
@@ -72,7 +67,6 @@ if authentication_status:
                 backtest = (username, backtest_name, file_path)
                 insert_backtest(conn, backtest)
                 st.success("Backtest salvo com sucesso!")
-
 
     elif selected_option == "Abrir Backtest Existente":
         backtests = get_user_backtests(conn, username)
@@ -85,7 +79,6 @@ if authentication_status:
                     file_path = bt[3]
                     df = visualize_backtest(file_path)
                     if df is not None:
-                        #st.write(df)
                         create_dash(df)
                     break
 
@@ -94,7 +87,7 @@ if authentication_status:
                 if bt[2] == selected_backtest:
                     delete_backtest(conn, bt[0])
                     os.remove(bt[3])
-                    st.error("Backtest apagado com sucesso!")
+                    st.success("Backtest apagado com sucesso!")
                     st.experimental_rerun()
 
 elif authentication_status == False:
