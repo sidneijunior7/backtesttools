@@ -64,8 +64,8 @@ if authentication_status:
                 file_path = save_csv(uploaded_file, username, backtest_name)
                 backtest = (username, backtest_name, file_path)
                 insert_backtest(conn, backtest)
-                st.experimental_rerun()
                 selected_option = "Abrir Backtest Existente"
+                st.experimental_rerun()
 
     elif selected_option == "Abrir Backtest Existente":
         backtests = get_user_backtests(conn, username)
