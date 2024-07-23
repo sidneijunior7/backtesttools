@@ -19,7 +19,7 @@ name, authentication_status, username = authenticator.login('main')
 if authentication_status:
     st.logo("img/logo-white.webp")
     st.sidebar.write(f"Bem-vindo, {name} :smile:")
-    st.write(st._config.get_option('theme'))
+    st.write(st.get_option("theme"))
     # Adicionar o botão de logout na sidebar
     authenticator.logout('Sair','sidebar',None)
 
