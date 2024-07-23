@@ -4,7 +4,7 @@ import os
 from database import create_connection, create_table, insert_backtest, get_user_backtests, delete_backtest
 from backtest import save_csv, visualize_backtest
 from main_dashboard import create_dash
-from users  import users
+from users import users
 
 # Inicializar a autenticação
 authenticator = stauth.Authenticate(
@@ -19,7 +19,7 @@ name, authentication_status, username = authenticator.login('main')
 if authentication_status:
     st.logo("img/logo-white.webp")
     st.sidebar.write(f"Bem-vindo, {name} :smile:")
-
+    st.write(st._config.get_option('theme'))
     # Adicionar o botão de logout na sidebar
     authenticator.logout('Sair','sidebar',None)
 
