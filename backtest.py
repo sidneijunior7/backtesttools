@@ -3,7 +3,7 @@ import pandas as pd
 
 def load_csv(file_path):
     try:
-        df = pd.read_csv(file_path)
+        df = pd.read_csv(file_path, encoding='utf-16', sep='\t')
     except Exception as e:
         print(e)
         return None

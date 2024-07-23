@@ -91,7 +91,7 @@ if authentication_status:
                 if bt[2] == selected_backtest:
                     delete_backtest(conn, bt[0])
                     os.remove(bt[3])
-                    st.success("Backtest apagado com sucesso!")
+                    st.error("Backtest apagado com sucesso!")
                     st.experimental_rerun()
 
 elif authentication_status == False:
