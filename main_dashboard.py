@@ -34,7 +34,7 @@ def calculate_metrics(df, start_date, end_date):
         "Drawdown Maximo": round(dd_max.max(), 2),
         "Drawdown Medio": round(dd_max.mean(), 2),
         "Dias": filtered_df['DATE'].dt.date.nunique(),
-        "Dias Positivos": positive_days['DATE_ONLY'].nunique()
+        "Dias Positivos": filtered_df.groupby('DATE_ONLY')['BALANCE'].last().reset_index()
     }
     return metrics
 
