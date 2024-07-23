@@ -46,19 +46,32 @@ def create_dash(df):
     metrics = calculate_metrics(df, start_date, end_date)
 
     # Exibir métricas
-    st.subheader("Métricas")
+    tab1, tab2 = st.tabs(["Básico", "Avançado"])
+    with tab1:
+        col1, col2 = st.columns(2)
+        with col1:
+            c = st.container(border=True)
+            c.caption('Retorno')
+            c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
+            c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
+        with col2:
+            c = st.container(border=True)
+            c.caption('Risco')
+            c.metric(label="Drawdown Médio: ", value=metrics['Drawdown Medio'])
+            c.metric(label="Drawdown Máximo: ", value=metrics['Drawdown Maximo'])
+    with tab2:
+        col1, col2 = st.columns(2)
+        with col1:
+            c = st.container(border=True)
+            c.caption('RETORNO AVANÇADO')
+            c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
+            c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
+        with col2:
+            c = st.container(border=True)
+            c.caption('RISCO AVANÇADO')
+            c.metric(label="Drawdown Médio: ", value=metrics['Drawdown Medio'])
+            c.metric(label="Drawdown Máximo: ", value=metrics['Drawdown Maximo'])
 
-    col1, col2 = st.columns(2)
-    with col1:
-        c = st.container(border=True)
-        c.caption('Retorno')
-        c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
-        c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
-    with col2:
-        c = st.container(border=True)
-        c.caption('Risco')
-        c.metric(label="Drawdown Médio: ", value=metrics['Drawdown Medio'])
-        c.metric(label="Drawdown Máximo: ", value=metrics['Drawdown Maximo'])
 
     if start_date <= end_date:
         filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
