@@ -97,6 +97,6 @@ if authentication_status:
                     st.experimental_rerun()
 
 elif authentication_status == False:
-    st.error("Nome de usuário/senha incorretos")
+    st.error("Nome de usuário ou senha incorretos")
 elif authentication_status == None:
     st.warning("Por favor, insira seu nome de usuário e senha")
