@@ -82,7 +82,7 @@ if authentication_status:
                     file_path = bt[3]
                     df = visualize_backtest(file_path)
                     if df is not None:
-                        st.write(df)
+                        #st.write(df)
                         create_dash(df)
                     break
 
