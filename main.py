@@ -36,6 +36,16 @@ authenticator = stauth.Authenticate(
 # Tela de login
 name, authentication_status, username = authenticator.login('main')
 
+
+# Função para verificar a senha
+def verify_password(username, password, credentials):
+    hashed_password = hash_password(password)
+    if username in credentials['usernames']:
+        stored_password = credentials['usernames'][username]['password']
+        return hashed_password == stored_password
+    return False
+
+
 if authentication_status:
     st.sidebar.success(f"Bem-vindo, {name}")
     conn = create_connection("backtests.db")
