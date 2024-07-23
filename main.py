@@ -31,7 +31,7 @@ def get_current_theme():
         """,
         unsafe_allow_html=True
     )
-    theme = st.experimental_get_query_params().get("theme", ["light"])[0]
+    theme = st.experimental_get_query_params().get("theme", ["unknown"])[0]
     return theme
 
 if authentication_status:
