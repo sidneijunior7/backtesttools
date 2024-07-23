@@ -51,18 +51,19 @@ if authentication_status:
     st.sidebar.success(f"Bem-vindo, {name}")
     # Adicionar o botão de logout
     authenticator.logout('Sair','sidebar',None)
+
     conn = create_connection("backtests.db")
     create_table(conn)
 
     # Opções após login
-    st.sidebar.subheader("O que você deseja fazer?")
-    options = ["Novo Backtest", "Abrir Existente"]
-    if st.sidebar.get_user_backtests(conn, username):
+    st.header("O que você deseja fazer?")
+    options = ["Novo Backtest", "Abrir Backtest Existente"]
+    if get_user_backtests(conn, username):
         selected_option = st.selectbox("Escolha uma opção", options)
     else:
         selected_option = st.selectbox("Escolha uma opção", ["Novo Backtest"])
 
-    if st.sidebar.selected_option == "Novo Backtest":
+    if selected_option == "Novo Backtest":
         uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
         if uploaded_file is not None:
             backtest_name = st.text_input("Nome do Backtest")
@@ -73,7 +74,7 @@ if authentication_status:
                 st.success("Backtest salvo com sucesso!")
 
 
-    elif st.sidebar.selected_option == "Abrir Existente":
+    elif selected_option == "Abrir Backtest Existente":
         backtests = get_user_backtests(conn, username)
         backtest_names = [bt[2] for bt in backtests]
         selected_backtest = st.selectbox("Escolha um backtest", backtest_names)
@@ -88,15 +89,15 @@ if authentication_status:
                         create_dash(df)
                     break
 
-        if st.sidebar.st.button("Apagar Backtest"):
+        if st.button("Apagar Backtest"):
             for bt in backtests:
                 if bt[2] == selected_backtest:
                     delete_backtest(conn, bt[0])
                     os.remove(bt[3])
-                    st.warning("Backtest apagado com sucesso!")
+                    st.error("Backtest apagado com sucesso!")
                     st.experimental_rerun()
 
 elif authentication_status == False:
-    st.error("Nome de usuário ou senha incorretos")
+    st.error("Nome de usuário/senha incorretos")
 elif authentication_status == None:
     st.warning("Por favor, insira seu nome de usuário e senha")
