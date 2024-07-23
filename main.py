@@ -3,19 +3,41 @@ import streamlit_authenticator as stauth
 import os
 from database import create_connection, create_table, insert_backtest, get_user_backtests, delete_backtest
 from backtest import save_csv, visualize_backtest
+import hashlib
+
+
+# Função para gerar hash de senhas
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
 
 # Configuração de autenticação
-usernames = ['user1', 'user2']
-passwords = ['password1', 'password2']  # Senhas em texto simples, mas você deve usar hashes em um ambiente de produção
+credentials = {
+    'usernames': {
+        'user1': {
+            'name': 'User One',
+            'password': hash_password('password1')
+        },
+        'user2': {
+            'name': 'User Two',
+            'password': hash_password('password2')
+        }
+    }
+}
 
 # Inicializar a autenticação
-authenticator = stauth.Authenticate(usernames, passwords, 'cookie_name', 'signature_key', cookie_expiry_days=30)
+authenticator = stauth.Authenticate(
+    credentials=credentials,
+    cookie_name='cookie_name',
+    cookie_key='signature_key',
+    cookie_expiry_days=30
+)
 
 # Tela de login
 name, authentication_status, username = authenticator.login('Login', 'main')
 
 if authentication_status:
-    st.sidebar.success(f"Bem-vindo, {username}")
+    st.sidebar.success(f"Bem-vindo, {name}")
     conn = create_connection("backtests.db")
     create_table(conn)
 
