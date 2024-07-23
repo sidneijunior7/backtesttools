@@ -8,8 +8,8 @@ from main_dashboard import create_dash
 
 
 # Função para gerar hash de senhas
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+#def hash_password(password):
+#    return hashlib.sha256(password.encode()).hexdigest()
 
 
 # Configuração de autenticação
@@ -17,11 +17,11 @@ credentials = {
     'usernames': {
         'sidneijunior': {
             'name': 'Junior',
-            'password': hash_password('sssj170795')  # Aplicando hash aqui
+            'password': ('sssj170795')  # Aplicando hash aqui
         },
         'user1': {
             'name': 'User One',
-            'password': hash_password('password1')
+            'password': ('password1')
         }
     }
 }
