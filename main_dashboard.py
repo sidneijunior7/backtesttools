@@ -81,7 +81,7 @@ def create_dash(df):
         with col1:
             c = st.container(border=True)
             c.caption('RETORNO AVANÇADO')
-            tipo_retorno = c.radio("Tipo", ["Relativo", "Absoluto"])
+            tipo_retorno = c.radio("Tipo", ["Relativo", "Absoluto"], key='tipo_retorno')
             if tipo_retorno=="Absoluto":
                 c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
                 c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
@@ -92,7 +92,7 @@ def create_dash(df):
         with col2:
             c = st.container(border=True)
             c.caption('RISCO AVANÇADO')
-            tipo_risco = c.radio("Tipo", ["Relativo", "Absoluto"])
+            tipo_risco = c.radio("Tipo", ["Relativo", "Absoluto"], key='tipo_risco')
             if tipo_risco=="Absoluto":
                 c.metric(label="Total Dias: ", value=metrics['Dias'])
                 c.metric(label="Positivos: ", value="{:.2f}%".format((metrics['Dias Positivos'] / metrics['Dias']) * 100))
