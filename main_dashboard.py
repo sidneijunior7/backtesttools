@@ -69,7 +69,7 @@ def create_dash(df):
         with col2:
             c = st.container(border=True)
             c.caption('RISCO')
-            c.metric(label="Drawdown Médio: ", value=f"R${metrics['Drawdown Medio']:.2f}")
+            c.metric(label="Drawdown Médio: ", value=f"R${metrics['Drawdown Médio']:.2f}")
             c.metric(label="Drawdown Máximo: ", value=f"R${metrics['Drawdown Maximo']:.2f}")
 
         st.subheader("Gráficos", divider=True)
