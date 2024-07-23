@@ -51,13 +51,12 @@ if authentication_status:
     st.sidebar.success(f"Bem-vindo, {name}")
     # Adicionar o botão de logout
     authenticator.logout('Sair','sidebar',None)
-
     conn = create_connection("backtests.db")
     create_table(conn)
 
     # Opções após login
-    st.header("O que você deseja fazer?")
-    options = ["Novo Backtest", "Abrir Backtest Existente"]
+    st.sidebar.subheader("O que você deseja fazer?")
+    options = ["Novo Backtest", "Abrir Existente"]
     if get_user_backtests(conn, username):
         selected_option = st.selectbox("Escolha uma opção", options)
     else:
@@ -74,7 +73,7 @@ if authentication_status:
                 st.success("Backtest salvo com sucesso!")
 
 
-    elif selected_option == "Abrir Backtest Existente":
+    elif selected_option == "Abrir Existente":
         backtests = get_user_backtests(conn, username)
         backtest_names = [bt[2] for bt in backtests]
         selected_backtest = st.selectbox("Escolha um backtest", backtest_names)
@@ -94,7 +93,7 @@ if authentication_status:
                 if bt[2] == selected_backtest:
                     delete_backtest(conn, bt[0])
                     os.remove(bt[3])
-                    st.error("Backtest apagado com sucesso!")
+                    st.warning("Backtest apagado com sucesso!")
                     st.experimental_rerun()
 
 elif authentication_status == False:
