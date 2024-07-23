@@ -51,8 +51,8 @@ if authentication_status:
     st.sidebar.success(f"Bem-vindo, {name}")
 
     # Adicionar o botão de logout
-    if st.sidebar.button("Logout"):
-        authenticator.logout('main')
+    #if st.sidebar.button("Logout"):
+    authenticator.logout('Logout','main',None)
         #st.experimental_rerun()
 
     conn = create_connection("backtests.db")
