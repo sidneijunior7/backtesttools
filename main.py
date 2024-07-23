@@ -16,26 +16,8 @@ authenticator = stauth.Authenticate(
 # Tela de login
 name, authentication_status, username = authenticator.login('main')
 
-# Função para definir o tema via JavaScript e retornar ao Python
-def get_current_theme():
-    st.markdown(
-        """
-        <script>
-        const setTheme = () => {
-            const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            window.localStorage.setItem("theme", theme);
-        };
-        setTheme();
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setTheme);
-        </script>
-        """,
-        unsafe_allow_html=True
-    )
-    theme = st.experimental_get_query_params().get("theme", ["unknown"])[0]
-    return theme
-
 if authentication_status:
-    st.write(str(get_current_theme()))
+    st.logo('img/logo-white.webp')
     st.sidebar.write(f"Bem-vindo, {name} :smile:")
     # Adicionar o botão de logout na sidebar
     authenticator.logout('Sair','sidebar',None)
