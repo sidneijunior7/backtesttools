@@ -16,7 +16,7 @@ credentials = {
     'usernames': {
         'user1': {
             'name': 'User One',
-            'password': hash_password('password1')
+            'password': 'password1'
         },
         'user2': {
             'name': 'User Two',
