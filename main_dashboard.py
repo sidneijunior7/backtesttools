@@ -18,12 +18,8 @@ def calculate_metrics(df, start_date, end_date):
 
     # Adicionar uma coluna 'DATE_ONLY' apenas com a data
     filtered_df['DATE_ONLY'] = filtered_df['DATE'].dt.date
-
-    # Calcular o saldo diário
     daily_balance = filtered_df.groupby('DATE_ONLY')['BALANCE'].last().reset_index()
-
-    # Filtrar os dias com saldo diário positivo
-    positive_days = daily_balance[daily_balance['BALANCE'] > 0]
+    positive_days = daily_balance[daily_balance['BALANCE'] > 0].nunique()
 
     # Calcular as métricas
     metrics = {
