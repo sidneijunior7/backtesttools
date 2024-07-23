@@ -39,7 +39,7 @@ def logo_theme():
 
 
 if authentication_status:
-    st.write(logo_theme)
+    st.write(str(logo_theme))
     st.sidebar.write(f"Bem-vindo, {name} :smile:")
     # Adicionar o botão de logout na sidebar
     authenticator.logout('Sair','sidebar',None)
