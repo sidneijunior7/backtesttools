@@ -16,30 +16,26 @@ authenticator = stauth.Authenticate(
 # Tela de login
 name, authentication_status, username = authenticator.login('main')
 
-def logo_theme():
-    logo_light="img/logo-white.webp"
-    logo_dark="img/logo-dark.png"
-    # JavaScript para detectar o tema e definir o logo
+# Função para definir o tema via JavaScript e retornar ao Python
+def get_current_theme():
     st.markdown(
-        f"""
-            <script>
-            const setLogo = () => {{
-                const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                const logo = theme === 'dark' ? '{logo_dark}' : '{logo_light}';
-                document.getElementById('logo').src = logo;
-            }};
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setLogo);
-            window.addEventListener('DOMContentLoaded', setLogo);
-            </script>
-            """,
+        """
+        <script>
+        const setTheme = () => {
+            const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            window.localStorage.setItem("theme", theme);
+        };
+        setTheme();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setTheme);
+        </script>
+        """,
         unsafe_allow_html=True
     )
-
-    return 'img/logo-white.webp'  # Logo padrão, será substituído pelo JavaScript
-
+    theme = st.experimental_get_query_params().get("theme", ["light"])[0]
+    return theme
 
 if authentication_status:
-    st.write(str(logo_theme))
+    st.write(str(get_current_theme()))
     st.sidebar.write(f"Bem-vindo, {name} :smile:")
     # Adicionar o botão de logout na sidebar
     authenticator.logout('Sair','sidebar',None)
