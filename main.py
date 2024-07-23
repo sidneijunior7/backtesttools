@@ -69,7 +69,8 @@ if authentication_status:
     elif selected_option == "Abrir Backtest Existente":
         backtests = get_user_backtests(conn, username)
         backtest_names = [bt[2] for bt in backtests]
-        selected_backtest = st.sidebar.selectbox("Escolha um backtest", backtest_names)
+        st.sidebar.divider()
+        selected_backtest = st.sidebar.radio("Escolha um backtest", backtest_names)
 
         if selected_backtest:
             for bt in backtests:
