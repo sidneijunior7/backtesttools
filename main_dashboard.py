@@ -62,12 +62,12 @@ def create_dash(df):
     with tab1:
         col1, col2 = st.columns(2)
         with col1:
-            c = st.container()
+            c = st.container(border=True)
             c.caption('RETORNO')
             c.metric(label="Lucro: ", value=f"R${metrics['Lucro Bruto']:.2f}")
             c.metric(label="Lucro Max: ", value=f"R${metrics['Lucro Máximo']:.2f}")
         with col2:
-            c = st.container()
+            c = st.container(border=True)
             c.caption('RISCO')
             c.metric(label="Drawdown Médio: ", value=f"R${metrics['Drawdown Medio']:.2f}")
             c.metric(label="Drawdown Máximo: ", value=f"R${metrics['Drawdown Maximo']:.2f}")
@@ -82,7 +82,7 @@ def create_dash(df):
     with tab2:
         col1, col2 = st.columns(2)
         with col1:
-            c = st.container()
+            c = st.container(border=True)
             c.caption('RETORNO AVANÇADO')
             tipo_retorno = c.radio("Tipo", ["Relativo", "Absoluto"], key='tipo_retorno')
             if tipo_retorno == "Absoluto":
@@ -93,7 +93,7 @@ def create_dash(df):
                 c.metric(label="Lucro: ", value=f"{(100 * metrics['Lucro Bruto']) / aporte:.2f}%")
                 c.metric(label="Lucro Max: ", value=f"{(100 * metrics['Lucro Máximo']) / aporte:.2f}%")
         with col2:
-            c = st.container()
+            c = st.container(border=True)
             c.caption('RISCO AVANÇADO')
             tipo_risco = c.radio("Tipo", ["Relativo", "Absoluto"], key='tipo_risco')
             if tipo_risco == "Absoluto":
