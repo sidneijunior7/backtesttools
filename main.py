@@ -4,7 +4,7 @@ import os
 from database import create_connection, create_table, insert_backtest, get_user_backtests, delete_backtest
 from backtest import save_csv, visualize_backtest
 import hashlib
-from main_dashboard import calculate_metrics, Create_Dash
+from main_dashboard import create_dash
 
 
 # Função para gerar hash de senhas
@@ -83,7 +83,7 @@ if authentication_status:
                     df = visualize_backtest(file_path)
                     if df is not None:
                         st.write(df)
-                        Create_Dash(df)
+                        create_dash(df)
                     break
 
         if st.button("Apagar Backtest"):
