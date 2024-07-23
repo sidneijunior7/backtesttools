@@ -17,7 +17,7 @@ authenticator = stauth.Authenticate(
 name, authentication_status, username = authenticator.login('main')
 
 if authentication_status:
-    st.sidebar.logo("img/logo-white.webp")
+    st.logo("img/logo-white.webp")
     st.sidebar.write(f"Bem-vindo, {name} :smile:")
 
     # Adicionar o botão de logout na sidebar
