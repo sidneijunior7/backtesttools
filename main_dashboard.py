@@ -30,16 +30,17 @@ def create_dash(df):
     # Adicionar um seletor de data
     st.subheader("Filtrar por Data")
     col01, col02, col03 = st.columns(3)
+
     with col01:
+        start_date = st.date_input("Data de Início", df['DATE'].min().date())
+
+    with col02:
+        end_date = st.date_input("Data de Término", df['DATE'].max().date())
+
+    with col03:
         if st.button("Todo Histórico"):
             start_date = df['DATE'].min()
             end_date = df['DATE'].max()
-
-    with col02:
-        start_date = st.date_input("Data de Início", df['DATE'].min().date())
-
-    with col03:
-        end_date = st.date_input("Data de Término", df['DATE'].max().date())
 
     if start_date <= end_date:
         filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
