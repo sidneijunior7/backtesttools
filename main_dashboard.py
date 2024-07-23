@@ -81,7 +81,7 @@ def create_dash(df):
             c = st.container(border=True)
             c.caption('RISCO AVANÇADO')
             c.metric(label="Total Dias: ", value=metrics['Dias'])
-            c.metric(label="Positivos: ", value=format(round(metrics['Dias Positivos']/metrics['Dias'], 2), '%'))
+            c.metric(label="Positivos: ", value=format(round((metrics['Dias Positivos']/metrics['Dias']), 2), '%'))
 
 
     if start_date <= end_date:
