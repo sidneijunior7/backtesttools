@@ -2,8 +2,9 @@ import stat
 
 import pandas as pd
 import streamlit as st
+import locale
 
-
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 def calculate_metrics(df, start_date, end_date):
     # Converter as datas para datetime
     start_date = pd.to_datetime(start_date)
@@ -26,7 +27,7 @@ def calculate_metrics(df, start_date, end_date):
     # Calcular as métricas
     metrics = {
         "Deposito": filtered_df['BALANCE'].iloc[0],
-        "Lucro Bruto": "R$ {:.2f}".format(filtered_df['BALANCE'].iloc[-1] - filtered_df['BALANCE'].iloc[0]),
+        "Lucro Bruto": locale.currency(['BALANCE'].iloc[-1] - filtered_df['BALANCE'].iloc[0],True),
         "Lucro Máximo": filtered_df['BALANCE'].max() - filtered_df['BALANCE'].iloc[0],
         "Drawdown Relativo": filtered_df['BALANCE'].min() - filtered_df['BALANCE'].iloc[0],
         "Drawdown Maximo": round(dd_max.max(), 2),
