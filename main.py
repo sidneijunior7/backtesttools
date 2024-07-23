@@ -78,7 +78,7 @@ if authentication_status:
                     file_path = bt[3]
                     df = visualize_backtest(file_path)
                     if df is not None:
-
+                        st.title(selected_backtest)
                         create_dash(df)
                     break
 
