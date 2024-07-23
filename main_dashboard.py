@@ -25,7 +25,7 @@ def calculate_metrics(df, start_date, end_date):
     # Calcular as métricas
     metrics = {
         "Deposito": filtered_df['BALANCE'].iloc[0],
-        "Lucro Bruto": "R${:,.2f}".format(filtered_df['BALANCE'].iloc[-1] - filtered_df['BALANCE'].iloc[0]),
+        "Lucro Bruto": "R${:.,2f}".format(filtered_df['BALANCE'].iloc[-1] - filtered_df['BALANCE'].iloc[0]),
         "Lucro Máximo": filtered_df['BALANCE'].max() - filtered_df['BALANCE'].iloc[0],
         "Drawdown Relativo": filtered_df['BALANCE'].min() - filtered_df['BALANCE'].iloc[0],
         "Drawdown Maximo": round(dd_max.max(), 2),
