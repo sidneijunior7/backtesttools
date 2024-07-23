@@ -106,6 +106,7 @@ def create_dash(df):
                 c.metric(label="Positivos: ",
                          value="{:.2f}%".format((metrics['Dias Positivos'] / metrics['Dias']) * 100))
 
+        st.subheader(body='Gráficos', divider=True)
         if start_date <= end_date:
             filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
             filtered_df['DD_MAX'] = filtered_df['BALANCE'].cummax()
