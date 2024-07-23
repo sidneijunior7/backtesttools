@@ -1,3 +1,5 @@
+import stat
+
 import pandas as pd
 import streamlit as st
 
@@ -21,7 +23,8 @@ def calculate_metrics(df, start_date, end_date):
         "Lucro Máximo": filtered_df['BALANCE'].max() - filtered_df['BALANCE'].iloc[0],
         "Drawdown Relativo": filtered_df['BALANCE'].min() - filtered_df['BALANCE'].iloc[0],
         "Drawdown Maximo": round(dd_max.max(), 2),
-        "Drawdown Medio": round(dd_max.mean(), 2)
+        "Drawdown Medio": round(dd_max.mean(), 2),
+        "Pregões" : filtered_df['DATE'].count().date()
     }
     return metrics
 
@@ -69,7 +72,7 @@ def create_dash(df):
         with col2:
             c = st.container(border=True)
             c.caption('RISCO AVANÇADO')
-            c.metric(label="Drawdown Médio: ", value=metrics['Drawdown Medio'])
+            c.metric(label="Total Dias: ", value=metrics['Pregões'])
             c.metric(label="Drawdown Máximo: ", value=metrics['Drawdown Maximo'])
 
 
