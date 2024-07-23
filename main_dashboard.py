@@ -15,6 +15,7 @@ def calculate_metrics(df, start_date, end_date):
     # Calcular o máximo acumulado e drawdown
     filtered_df['DD_MAX'] = filtered_df['BALANCE'].cummax()
     dd_max = filtered_df['DD_MAX'] - filtered_df['BALANCE']
+    filtered_positive_df = filtered_df[filtered_df['BALANCE'] > 0]
 
     # Calcular as métricas
     metrics = {
@@ -24,7 +25,8 @@ def calculate_metrics(df, start_date, end_date):
         "Drawdown Relativo": filtered_df['BALANCE'].min() - filtered_df['BALANCE'].iloc[0],
         "Drawdown Maximo": round(dd_max.max(), 2),
         "Drawdown Medio": round(dd_max.mean(), 2),
-        "Pregões" : filtered_df['DATE'].dt.date.nunique()
+        "Dias" : filtered_df['DATE'].dt.date.nunique(),
+        "Dias Positivos" : filtered_positive_df['DATE'].dt.date.nunique()
     }
     return metrics
 
@@ -72,8 +74,8 @@ def create_dash(df):
         with col2:
             c = st.container(border=True)
             c.caption('RISCO AVANÇADO')
-            c.metric(label="Total Dias: ", value=metrics['Pregões'])
-            c.metric(label="Drawdown Máximo: ", value=metrics['Drawdown Maximo'])
+            c.metric(label="Total Dias: ", value=metrics['Dias'])
+            c.metric(label="Positivos: ", value=metrics['Dias Positivos'])
 
 
     if start_date <= end_date:
