@@ -54,7 +54,7 @@ if authentication_status:
         selected_option = st.sidebar.radio("Escolha uma opção", ["Novo Backtest"])
 
     # Área principal
-    st.title("Dashboard")
+    #st.title("Dashboard")
 
     if selected_option == "Novo Backtest":
         uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
@@ -77,6 +77,7 @@ if authentication_status:
                     file_path = bt[3]
                     df = visualize_backtest(file_path)
                     if df is not None:
+
                         create_dash(df)
                     break
 
