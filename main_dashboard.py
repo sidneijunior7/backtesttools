@@ -73,7 +73,7 @@ def create_dash(df):
             c.metric(label="Drawdown Máximo: ", value=f"R${metrics['Drawdown Maximo']:.2f}")
 
         st.divider()
-        st.caption(":bar_chart: Gráficos")
+        st.text(":bar_chart: Gráficos")
         if start_date <= end_date:
             filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
             valor_inicial = filtered_df['BALANCE'].iloc[0]
@@ -109,7 +109,7 @@ def create_dash(df):
                          value="{:.2f}%".format((metrics['Dias Positivos'] / metrics['Dias']) * 100))
 
         st.divider()
-        st.caption(":bar_chart: Gráficos")
+        st.text(":bar_chart: Gráficos")
         if start_date <= end_date:
             filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
             filtered_df['DD_MAX'] = filtered_df['BALANCE'].cummax()
