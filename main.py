@@ -64,7 +64,8 @@ if authentication_status:
                 file_path = save_csv(uploaded_file, username, backtest_name)
                 backtest = (username, backtest_name, file_path)
                 insert_backtest(conn, backtest)
-                st.success("Backtest salvo com sucesso!")
+                st.success(":white_check_mark: Backtest salvo com sucesso!")
+                st.experimental_rerun()
 
     elif selected_option == "Abrir Backtest Existente":
         backtests = get_user_backtests(conn, username)
