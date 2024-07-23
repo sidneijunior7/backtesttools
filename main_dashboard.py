@@ -1,8 +1,8 @@
-import stat
-
 import pandas as pd
 import streamlit as st
 
+
+# Função para calcular as métricas
 def calculate_metrics(df, start_date, end_date):
     # Converter as datas para datetime
     start_date = pd.to_datetime(start_date)
@@ -36,6 +36,7 @@ def calculate_metrics(df, start_date, end_date):
     return metrics
 
 
+# Função para criar o dashboard
 def create_dash(df):
     # Adicionar um seletor de data
     st.subheader("Filtrar por Data")
@@ -52,23 +53,25 @@ def create_dash(df):
             start_date = df['DATE'].min()
             end_date = df['DATE'].max()
 
-        # Calcular métricas
+    # Calcular métricas
     metrics = calculate_metrics(df, start_date, end_date)
 
     # Exibir métricas
     tab1, tab2 = st.tabs([":old_key: Básico", ":zap: Avançado"])
+
     with tab1:
         col1, col2 = st.columns(2)
         with col1:
-            c = st.container(border=True)
+            c = st.container()
             c.caption('RETORNO')
-            c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
-            c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
+            c.metric(label="Lucro: ", value=f"R${metrics['Lucro Bruto']:.2f}")
+            c.metric(label="Lucro Max: ", value=f"R${metrics['Lucro Máximo']:.2f}")
         with col2:
-            c = st.container(border=True)
+            c = st.container()
             c.caption('RISCO')
-            c.metric(label="Drawdown Médio: ", value=metrics['Drawdown Medio'])
-            c.metric(label="Drawdown Máximo: ", value=metrics['Drawdown Maximo'])
+            c.metric(label="Drawdown Médio: ", value=f"R${metrics['Drawdown Medio']:.2f}")
+            c.metric(label="Drawdown Máximo: ", value=f"R${metrics['Drawdown Maximo']:.2f}")
+
         if start_date <= end_date:
             filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
             valor_inicial = filtered_df['BALANCE'].iloc[0]
@@ -79,35 +82,35 @@ def create_dash(df):
     with tab2:
         col1, col2 = st.columns(2)
         with col1:
-            c = st.container(border=True)
+            c = st.container()
             c.caption('RETORNO AVANÇADO')
             tipo_retorno = c.radio("Tipo", ["Relativo", "Absoluto"], key='tipo_retorno')
-            if tipo_retorno=="Absoluto":
-                c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
-                c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
+            if tipo_retorno == "Absoluto":
+                c.metric(label="Lucro: ", value=f"R${metrics['Lucro Bruto']:.2f}")
+                c.metric(label="Lucro Max: ", value=f"R${metrics['Lucro Máximo']:.2f}")
             else:
-                aporte = c.number_input(min_value=100, max_value=None, value=1000, step=100, label='Deposito ($)')
-                c.metric(label="Lucro: ", value=(100 * metrics['Lucro Bruto']) / aporte)
-                c.metric(label="Lucro Max: ", value=(100 * metrics['Lucro Máximo']) / aporte)
+                aporte = c.number_input("Depósito ($)", min_value=100, value=1000, step=100, key='aporte')
+                c.metric(label="Lucro: ", value="{:.2f}%".format((100 * metrics['Lucro Bruto']) / aporte))
+                c.metric(label="Lucro Max: ", value="{:.2f}%".format((100 * metrics['Lucro Máximo']) / aporte))
         with col2:
-            c = st.container(border=True)
+            c = st.container()
             c.caption('RISCO AVANÇADO')
             tipo_risco = c.radio("Tipo", ["Relativo", "Absoluto"], key='tipo_risco')
-            if tipo_risco=="Absoluto":
+            if tipo_risco == "Absoluto":
                 c.metric(label="Total Dias: ", value=metrics['Dias'])
                 c.metric(label="Positivos: ", value=metrics['Dias Positivos'])
             else:
-
                 c.metric(label="Total Dias: ", value=metrics['Dias'])
-                c.metric(label="Positivos: ",  value="{:.2f}%".format((metrics['Dias Positivos'] / metrics['Dias']) * 100))
+                c.metric(label="Positivos: ",
+                         value="{:.2f}%".format((metrics['Dias Positivos'] / metrics['Dias']) * 100))
+
         if start_date <= end_date:
             filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
             filtered_df['DD_MAX'] = filtered_df['BALANCE'].cummax()
-            st.line_chart(-1*(filtered_df['DD_MAX'] - filtered_df['BALANCE']),color="#FF0055")
+            st.line_chart(-1 * (filtered_df['DD_MAX'] - filtered_df['BALANCE']), color="#FF0055")
         else:
             st.error("Erro: A data de início deve ser menor ou igual à data de término.")
 
-
-
-
-    return None
+# Exemplo de uso (remova isso quando integrar com seu projeto principal)
+# df = pd.read_csv("seu_arquivo.csv")  # Carregar seu DataFrame aqui
+# create_dash(df)
