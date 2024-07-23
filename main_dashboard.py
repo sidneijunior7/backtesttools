@@ -19,7 +19,7 @@ def calculate_metrics(df, start_date, end_date):
     # Adicionar uma coluna 'DATE_ONLY' apenas com a data
     filtered_df['DATE_ONLY'] = filtered_df['DATE'].dt.date
     daily_balance = filtered_df.groupby('DATE_ONLY')['BALANCE'].last().reset_index()
-    positive_days = daily_balance[daily_balance['BALANCE'] > 0].nunique()
+    positive_days = daily_balance[daily_balance['BALANCE'] > 0]
 
     # Calcular as métricas
     metrics = {
@@ -30,7 +30,7 @@ def calculate_metrics(df, start_date, end_date):
         "Drawdown Maximo": round(dd_max.max(), 2),
         "Drawdown Medio": round(dd_max.mean(), 2),
         "Dias": filtered_df['DATE'].dt.date.nunique(),
-        "Dias Positivos": positive_days
+        "Dias Positivos": positive_days['DATE_ONLY'].nunique()
     }
     return metrics
 
