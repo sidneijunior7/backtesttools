@@ -86,7 +86,7 @@ def create_dash(df):
                 c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
                 c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
             else:
-                aporte = c.number_input(min_value=100, max_value=None, value=1000, step=100, label='Deposito')
+                aporte = c.number_input(min_value=100, max_value=None, value=1000, step=100, label='Deposito ($)')
                 c.metric(label="Lucro: ", value=(100 * metrics['Lucro Bruto']) / aporte)
                 c.metric(label="Lucro Max: ", value=(100 * metrics['Lucro Máximo']) / aporte)
         with col2:
@@ -95,7 +95,7 @@ def create_dash(df):
             tipo_risco = c.radio("Tipo", ["Relativo", "Absoluto"], key='tipo_risco')
             if tipo_risco=="Absoluto":
                 c.metric(label="Total Dias: ", value=metrics['Dias'])
-                c.metric(label="Positivos: ", value="{:.2f}%".format((metrics['Dias Positivos'] / metrics['Dias']) * 100))
+                c.metric(label="Positivos: ", value=metrics['Dias Positivos'])
             else:
 
                 c.metric(label="Total Dias: ", value=metrics['Dias'])
