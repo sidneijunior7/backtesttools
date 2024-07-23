@@ -91,7 +91,7 @@ def create_dash(df):
         if start_date <= end_date:
             filtered_df = df[(df['DATE'] >= pd.to_datetime(start_date)) & (df['DATE'] <= pd.to_datetime(end_date))]
             filtered_df['DD_MAX'] = filtered_df['BALANCE'].cummax()
-            st.line_chart(filtered_df['DD_MAX'] - filtered_df['BALANCE'])
+            st.line_chart(-1*filtered_df['DD_MAX'] - filtered_df['BALANCE'],color="#FF0055")
         else:
             st.error("Erro: A data de início deve ser menor ou igual à data de término.")
 
