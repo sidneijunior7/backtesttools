@@ -41,9 +41,7 @@ if authentication_status:
     st.sidebar.success(f"Bem-vindo, {name}")
 
     # Adicionar o botão de logout na sidebar
-    if st.sidebar.button("Logout"):
-        authenticator.logout('main')
-        st.experimental_rerun()
+    authenticator.logout('Sair','main',None)
 
     conn = create_connection("backtests.db")
     create_table(conn)
@@ -71,7 +69,7 @@ if authentication_status:
     elif selected_option == "Abrir Backtest Existente":
         backtests = get_user_backtests(conn, username)
         backtest_names = [bt[2] for bt in backtests]
-        selected_backtest = st.selectbox("Escolha um backtest", backtest_names)
+        selected_backtest = st.sidebar.selectbox("Escolha um backtest", backtest_names)
 
         if selected_backtest:
             for bt in backtests:
