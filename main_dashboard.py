@@ -15,7 +15,6 @@ def calculate_metrics(df, start_date, end_date):
     # Calcular o máximo acumulado e drawdown
     filtered_df['DD_MAX'] = filtered_df['BALANCE'].cummax()
     dd_max = filtered_df['DD_MAX'] - filtered_df['BALANCE']
-    filtered_positive_df = filtered_df[filtered_df['BALANCE'] > 0]
 
     # Adicionar uma coluna 'DATE_ONLY' apenas com a data
     filtered_df['DATE_ONLY'] = filtered_df['DATE'].dt.date
