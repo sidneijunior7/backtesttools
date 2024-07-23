@@ -63,7 +63,7 @@ def create_dash(df):
         with col1:
             c = st.container(border=True)
             c.caption('RETORNO')
-            c.metric(label="Lucro: ", value=metrics['Lucro Bruto'])
+            c.metric(label="Lucro: ", value="R${:.2f}".format(metrics['Lucro Bruto']))
             c.metric(label="Lucro Max: ", value=metrics['Lucro Máximo'])
         with col2:
             c = st.container(border=True)
