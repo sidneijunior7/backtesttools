@@ -22,7 +22,7 @@ if authentication_status:
     else:
         st.logo('img/logo-white.webp')
 
-    st.sidebar.write(f'Bem-vindo, {name} :smile: {st.get_option("theme.secondaryColor")}')
+    st.sidebar.write(f'Bem-vindo, {name} :smile: {st.get_option("theme.secondaryBackgroundColor")}')
     # Adicionar o botão de logout na sidebar
     authenticator.logout('Sair','sidebar',None)
 
