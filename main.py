@@ -17,10 +17,10 @@ authenticator = stauth.Authenticate(
 name, authentication_status, username = authenticator.login('main')
 
 if authentication_status:
-    if st.get_option("theme.backgroundColor") == "#FFFFFF":
-        st.logo('img/logo-dark.webp')
-    else:
-        st.logo('img/logo-white.webp')
+    # if st.get_option("theme.backgroundColor") == "#FFFFFF":
+    #     st.logo('img/logo-dark.webp')
+    # else:
+    #     st.logo('img/logo-white.webp')
 
     st.sidebar.write(f'Bem-vindo, {name} :smile: \n')
     st.sidebar.write(st.get_option("theme.backgroundColor"))
