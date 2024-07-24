@@ -17,9 +17,9 @@ authenticator = stauth.Authenticate(
 name, authentication_status, username = authenticator.login('main')
 
 if authentication_status:
+    tema = st.sidebar.toggle(label='Tema', value=False)
 
-    st.sidebar.write(f'Bem-vindo, {name} :smile: \n')
-    st.sidebar.write(st.get_option('theme.backgroundColor'))
+    st.sidebar.write(f'Bem-vindo, {name} :smile: \n {str(tema)}')
     # Adicionar o botão de logout na sidebar
     authenticator.logout(button_name='Sair ', location='sidebar', key='logout')
 
