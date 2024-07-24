@@ -19,16 +19,11 @@ name, authentication_status, username = authenticator.login('main')
 if authentication_status:
 
     tema = st.sidebar.toggle(label='Modo Escuro', value=False)
-    if not tema:
-        #st.set_option(key='theme.base', value='light')
-        st.set_option(key='theme.primaryColor', value='#ff0058')
-        st.set_option(key='theme.secondaryBackgroundColor', value='#f3f3f3')
-        st.set_option(key='theme.backgroundColor', value='#FFFFFF')
+
+    if(st.get_option('theme.backgroundColor') == "#FFFFFF"):
+        st.logo('img/logo-dark.webp')
     else:
-        #st.set_option(key='theme.base', value='dark')
-        st.set_option(key='theme.primaryColor', value='#c9063d')
-        st.set_option(key='theme.secondaryBackgroundColor', value='#161c23')
-        st.set_option(key='theme.backgroundColor', value='#11151c')
+        st.logo('img/logo-white.webp')
 
     st.sidebar.write(f'Bem-vindo, {name} :smile: \n')
     # Adicionar o botão de logout na sidebar
