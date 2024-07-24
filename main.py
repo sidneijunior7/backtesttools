@@ -17,21 +17,17 @@ authenticator = stauth.Authenticate(
 name, authentication_status, username = authenticator.login('main')
 
 if authentication_status:
-    # if st.get_option("theme.backgroundColor") == "#FFFFFF":
-    #     st.logo('img/logo-dark.webp')
-    # else:
-    #     st.logo('img/logo-white.webp')
 
     st.sidebar.write(f'Bem-vindo, {name} :smile: \n')
-    st.sidebar.write(st.get_option("theme.backgroundColor"))
+    st.sidebar.write(st.get_option('theme.backgroundColor'))
     # Adicionar o botão de logout na sidebar
-    authenticator.logout('Sair','sidebar',None)
+    authenticator.logout(button_name='Sair ', location='sidebar', key='logout')
 
-    conn = create_connection("backtests.db")
+    conn = create_connection('backtests.db')
     create_table(conn)
 
     # Adicionar as opções pós-login na sidebar
-    st.sidebar.header("Opções")
+    st.sidebar.header('Opções')
     if get_user_backtests(conn, username):
         selected_option = st.sidebar.radio("Escolha uma opção", ["Novo Backtest", "Abrir Backtest Existente"])
     else:
